@@ -2,9 +2,25 @@ import 'package:flutter/material.dart';
 
 import './shortcut.dart';
 
-class WxHome extends StatelessWidget {
+class WxHome extends StatefulWidget {
   @override
-  Widget build(BuildContext build) {
+  createState() {
+    return new InnerState();
+  }
+}
+
+class InnerState extends State<WxHome> {
+  bool canShowShourcut = false;
+
+  void toggleShourcut() {
+    // 这块切换状态有问题，需要重构，先这样满足一下自己吧。。。
+    setState(() {
+      this.canShowShourcut = !this.canShowShourcut;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return new MaterialApp(
       theme: ThemeData(
           primaryColor: Colors.black, scaffoldBackgroundColor: Colors.white),
@@ -18,6 +34,7 @@ class WxHome extends StatelessWidget {
               tooltip: '常用操作',
               onPressed: () {
                 //   需要一个有状态的部件
+                this.toggleShourcut();
               },
             ),
           ],
@@ -28,7 +45,9 @@ class WxHome extends StatelessWidget {
             constraints: BoxConstraints.expand(),
             child: new Stack(
               children: <Widget>[
-                new Shortcut()
+                this.canShowShourcut
+                    ? new Shortcut()
+                    : new Container(height: 0.0, width: 0.0)
               ],
             ),
           ),

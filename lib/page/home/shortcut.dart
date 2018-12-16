@@ -8,27 +8,102 @@ class Shortcut extends StatefulWidget {
     return new InnerState();
   }
 }
-// 怎么使用这个泛型，有个图片可以参考一下
-class Struct {
-  final String text;
-  final Widget icon;
-  final Map res;
-  Struct({this.text, this.icon}) : res = {text: text, icon: icon};
-}
 
 class InnerState extends State<Shortcut> {
-  var lists = <Struct>[
-    new Struct(
-      text: '发起群聊',
-      icon: new Icon(
-        Icons.chat_bubble,
-        color: Colors.white,
+  Widget createFlexStruct(
+      {@required String text, @required Widget icon, bool hasBorder = true}) {
+    return new Container(
+      height: 35,
+      child: new DecoratedBox(
+        decoration: new BoxDecoration(
+          border: new Border(
+            bottom: hasBorder
+                ? BorderSide(
+                    width: 0.7,
+                    color: Colors.white,
+                  )
+                : BorderSide.none,
+          ),
+        ),
+        child: new Flex(
+          direction: Axis.horizontal,
+          children: <Widget>[
+            new Expanded(
+              flex: 1,
+              child: icon,
+            ),
+            new Expanded(
+              flex: 3,
+              child: new Padding(
+                padding: EdgeInsets.only(
+                  left: 15,
+                  bottom: 5,
+                ),
+                child: new Text(
+                  '$text',
+                  style: new TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-    ),
-  ];
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    var num = 4;
+    // 创建一个长度为4的数组/list
+    var length = new List<int>.generate(num, (index) => index);
+    // 声明结构体list
+    var lists = <Container>[];
+    length.forEach((index) {
+      var text;
+      var icon;
+      var hasBorder = true;
+      switch (index) {
+        case 0:
+          text = '发起群聊';
+          icon = new Icon(
+            Icons.chat_bubble,
+            color: Colors.white,
+          );
+          break;
+        case 1:
+          text = '添加朋友';
+          icon = new Icon(
+            Icons.person_add,
+            color: Colors.white,
+          );
+          break;
+        case 2:
+          text = '扫一扫';
+          icon = new Icon(
+            Icons.scanner,
+            color: Colors.white,
+          );
+          break;
+        case 3:
+          text = '收付款';
+          icon = new Icon(
+            Icons.payment,
+            color: Colors.white,
+          );
+          hasBorder = false;
+          break;
+      }
+      lists.add(
+        createFlexStruct(
+          text: text,
+          icon: icon,
+          hasBorder: hasBorder,
+        ),
+      );
+    });
+
     return new Positioned(
       right: 10.0,
       top: 10.0,
@@ -66,33 +141,13 @@ class InnerState extends State<Shortcut> {
             new Container(
               color: Colors.black,
               child: new Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.only(
+                  left: 10.0,
+                  right: 10.0,
+                  top: 5.0,
+                ),
                 child: new Column(
-                  children: <Widget>[
-                    new Flex(
-                      direction: Axis.horizontal,
-                      children: <Widget>[
-                        new Expanded(
-                          flex: 1,
-                          child: new Icon(
-                            Icons.chat_bubble,
-                            color: Colors.white,
-                          ),
-                        ),
-                        new Expanded(
-                          flex: 3,
-                          child: new Center(
-                            child: new Text(
-                              '发起群聊',
-                              style: new TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  children: lists,
                 ),
               ),
             )
