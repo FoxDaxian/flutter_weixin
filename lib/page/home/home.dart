@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './shortcut.dart';
+import './list.dart';
 
 class WxHome extends StatefulWidget {
   @override
@@ -23,7 +24,7 @@ class InnerState extends State<WxHome> {
   Widget build(BuildContext context) {
     return new MaterialApp(
       theme: ThemeData(
-          primaryColor: Colors.black, scaffoldBackgroundColor: Colors.white),
+          primaryColor: Colors.white, scaffoldBackgroundColor: Colors.white),
       home: new Scaffold(
         appBar: new AppBar(
           centerTitle: true,
@@ -33,21 +34,21 @@ class InnerState extends State<WxHome> {
               icon: Icon(Icons.add),
               tooltip: '常用操作',
               onPressed: () {
-                //   需要一个有状态的部件
+                // 需要一个有状态的部件
                 this.toggleShourcut();
               },
             ),
           ],
         ),
         body: new Container(
-          color: Colors.red[100],
           child: new ConstrainedBox(
             constraints: BoxConstraints.expand(),
             child: new Stack(
               children: <Widget>[
                 this.canShowShourcut
                     ? new Shortcut()
-                    : new Container(height: 0.0, width: 0.0)
+                    : new Container(height: 0.0, width: 0.0),
+                new List(),
               ],
             ),
           ),
