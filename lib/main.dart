@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './page/home/home.dart';
+import './page/home/index.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,6 +9,6 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new WxHome();
+    return new Index();
   }
 }

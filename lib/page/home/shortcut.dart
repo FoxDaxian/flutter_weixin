@@ -5,11 +5,11 @@ import 'dart:math';
 class Shortcut extends StatefulWidget {
   @override
   createState() {
-    return new InnerState();
+    return new _InnerState();
   }
 }
 
-class InnerState extends State<Shortcut> {
+class _InnerState extends State<Shortcut> {
   Widget createFlexStruct(
       {@required String text, @required Widget icon, bool hasBorder = true}) {
     return new Container(
