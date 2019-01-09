@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import './navigationBar.dart';
 import './home.dart';
+// 通讯录
+import '../adressBook/index.dart';
 
 class Index extends StatefulWidget {
   @override
@@ -24,6 +26,7 @@ class _InnerState extends State<Index> {
   changeBody(index) {
     switch (index) {
       case 1:
+        return new AdressBook();
         break;
       case 2:
         break;
@@ -41,13 +44,16 @@ class _InnerState extends State<Index> {
 
   @override
   Widget build(BuildContext context) {
+    var title = ['微信', '通讯录', '发现', '我'];
     return new MaterialApp(
       theme: ThemeData(
-          primaryColor: Colors.white, scaffoldBackgroundColor: Colors.white),
+        primaryColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
+      ),
       home: new Scaffold(
         appBar: new AppBar(
           centerTitle: true,
-          title: new Text('微信'),
+          title: new Text(title[navigationBarIndex]),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.add),
